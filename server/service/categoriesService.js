@@ -4,18 +4,22 @@ exports.getCategories = function () {
     return categoriesData.getCategories();
 };
 
-exports.getCategory = function (id) {
-	return categoriesData.getCategory(id);
+exports.getCategory = async function (id) {
+	const category = await categoriesData.getCategory(id);
+	if(!category) throw new Error('Category not Found');
+	return category;
 };
 
 exports.saveCategory = function (category) {
 	return categoriesData.saveCategory(category);
 };
 
-exports.deleteCategory = function (id) {
+exports.deleteCategory = async function (id) {
+	await exports.getCategory(id);
 	return categoriesData.deleteCategory(id);
 };
 
-exports.updateCategory = function (id, category) {
+exports.updateCategory = async function (id, category) {
+	await exports.getCategory(id);
 	return categoriesData.updateCategory(id, category);
 };
