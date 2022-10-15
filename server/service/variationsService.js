@@ -4,18 +4,22 @@ exports.getVariations = function () {
     return variationsData.getVariations();
 };
 
-exports.getVariation = function (id) {
-	return variationsData.getVariation(id);
+exports.getVariation = async function (id) {
+	const variation = await productsData.getVariation(id);
+	if(!variation) throw new Error('Variation not Found');
+	return variation;
 };
 
 exports.saveVariation = function (variation) {
 	return variationsData.saveVariation(variation);
 };
 
-exports.deleteVariation = function (id) {
+exports.deleteVariation = async function (id) {
+	await exports.getVariation(id);
 	return variationsData.deleteVariation(id);
 };
 
-exports.updateVariation = function (id, variation) {
+exports.updateVariation = async function (id, variation) {
+	await exports.getVariation(id);
 	return variationsData.updateVariation(id, variation);
 };
