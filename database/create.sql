@@ -14,7 +14,7 @@ create table mkt.product (
 	id serial primary key,
 	name text not null,
 	description text not null,
-    price double not null,
+    price numeric(6) not null,
 	date timestamp default now()
 );
 
